@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satu Bata, Satu Nama — Perpustakaan Desa Sukamaju</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#071A21;
+  --blueprint:#0C2A34;
+  --panel:#0F343F;
+  --line:#2F7183;
+  --line-soft:rgba(92,176,197,.20);
+  --line-mid:rgba(92,176,197,.45);
+  --chalk:#E6F2F4;
+  --chalk-dim:#8FB0BA;
+  --clay-1:#B8502F;
+  --clay-2:#C9613A;
+  --clay-3:#A6462A;
+  --clay-4:#D0724A;
+  --hi:#F2B705;
+  --gap:4px;
+  --radius:2px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink);
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px),
+    radial-gradient(circle at 70% 15%,rgba(47,113,131,.28),transparent 60%);
+  background-size:32px 32px,32px 32px,100% 100%;
+  color:var(--chalk);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 24px 80px}
+
+/* ---------- header ---------- */
+.meta{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--chalk-dim);
+  display:flex;flex-wrap:wrap;gap:8px 20px;
+  border-bottom:1px solid var(--line-mid);
+  padding-bottom:10px;margin-bottom:34px;
+}
+.meta b{color:var(--hi);font-weight:500}
+h1{
+  font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+  font-weight:800;
+  font-size:clamp(52px,9vw,104px);
+  line-height:.86;
+  letter-spacing:.01em;
+  margin:0 0 18px;
+  text-transform:uppercase;
+}
+h1 em{font-style:normal;color:var(--clay-2);display:block}
+.dek{max-width:38ch;color:var(--chalk-dim);margin:0 0 28px;font-size:16px}
+.dek strong{color:var(--chalk);font-weight:500}
+
+/* ---------- layout ---------- */
+.cols{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:48px;align-items:start}
+@media(max-width:880px){.cols{grid-template-columns:1fr;gap:40px}}
+
+/* ---------- stats ---------- */
+.stats{border-top:1px solid var(--line-mid);padding-top:16px;margin-bottom:30px}
+.count{font-family:"Big Shoulders Display",sans-serif;font-weight:700;font-size:64px;line-height:.9}
+.count span{color:var(--chalk-dim);font-size:28px}
+.rupiah{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--hi);letter-spacing:.04em;margin-top:2px}
+.target{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--chalk-dim);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+
+/* ---------- form ---------- */
+.form{background:rgba(15,52,63,.72);border:1px solid var(--line-mid);padding:20px;border-radius:var(--radius)}
+.form h2{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-dim);margin:0 0 16px;font-weight:500}
+label{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk-dim);margin-bottom:6px}
+input[type=text]{
+  width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);
+  color:var(--chalk);font-family:"IBM Plex Sans",sans-serif;font-size:16px;
+  padding:6px 0 8px;margin-bottom:20px;border-radius:0;
+}
+input[type=text]::placeholder{color:rgba(143,176,186,.5)}
+input[type=text]:focus{outline:none;border-bottom-color:var(--hi)}
+.row-lbl{display:flex;justify-content:space-between;align-items:baseline}
+.row-lbl output{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--hi)}
+input[type=range]{width:100%;margin:2px 0 20px;accent-color:var(--clay-2);height:22px}
+button{
+  font-family:"Big Shoulders Display",sans-serif;font-weight:700;
+  font-size:22px;letter-spacing:.06em;text-transform:uppercase;
+  width:100%;padding:12px;cursor:pointer;
+  background:var(--clay-1);color:#fff;border:0;border-radius:var(--radius);
+  transition:background .15s ease;
+}
+button:hover{background:var(--clay-2)}
+button:disabled{background:#3B4F57;color:var(--chalk-dim);cursor:not-allowed}
+:focus-visible{outline:2px solid var(--hi);outline-offset:3px}
+.err{font-size:13px;color:var(--hi);margin:10px 0 0;min-height:1px}
+
+/* ---------- wall ---------- */
+.drawing{position:relative;padding:0 46px 40px 0}
+.wall{position:relative;overflow:hidden;padding:10px 0;background:rgba(7,26,33,.35);border:1px solid var(--line-soft)}
+.brow{display:grid;grid-template-columns:repeat(10,1fr);gap:var(--gap);padding:0 10px;margin-bottom:var(--gap)}
+.brow:last-child{margin-bottom:0}
+.brow.off{transform:translateX(5%)}
+.b{aspect-ratio:2.2/1;border-radius:1px;transition:transform .18s ease,filter .18s ease}
+.b.empty{border:1px dashed var(--line-mid);background:rgba(47,113,131,.06)}
+.b.fill{border:1px solid rgba(0,0,0,.28);box-shadow:inset 0 -2px 0 rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.10);cursor:pointer}
+.b.fill:hover{transform:translateY(-2px);filter:brightness(1.18)}
+.c1{background:var(--clay-1)}.c2{background:var(--clay-2)}.c3{background:var(--clay-3)}.c4{background:var(--clay-4)}
+.b.drop{animation:drop .42s cubic-bezier(.22,1.2,.4,1) backwards}
+@keyframes drop{from{transform:translateY(-22px);opacity:0}to{transform:none;opacity:1}}
+.pillar{position:absolute;top:0;bottom:0;width:12px;border:1px dashed var(--line-mid);background:var(--ink);}
+.pillar.l{left:0}.pillar.r{right:0}
+
+/* dimensions */
+.dim{position:absolute;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--chalk-dim)}
+.dim.v{right:0;top:0;bottom:40px;width:34px;border-left:1px solid var(--line-mid);display:flex;align-items:center;justify-content:center}
+.dim.v span{transform:rotate(90deg);white-space:nowrap}
+.dim.h{left:0;right:46px;bottom:0;height:24px;border-top:1px solid var(--line-mid);display:flex;align-items:center;justify-content:center}
+.roofline{display:block;width:100%;height:52px;margin-bottom:6px}
+
+/* tooltip */
+.tip{
+  position:fixed;z-index:40;pointer-events:none;opacity:0;transform:translate(-50%,-118%);
+  background:var(--ink);border:1px solid var(--hi);padding:8px 11px;border-radius:var(--radius);
+  max-width:230px;transition:opacity .12s ease;
+}
+.tip.on{opacity:1}
+.tip .n{font-family:"Big Shoulders Display",sans-serif;font-weight:700;font-size:19px;line-height:1;text-transform:uppercase}
+.tip .d{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--hi);letter-spacing:.08em;margin-top:3px}
+.tip .m{font-size:13px;color:var(--chalk-dim);margin-top:6px;font-style:italic}
+
+/* feed */
+.feed{margin-top:34px;border-top:1px solid var(--line-mid);padding-top:14px}
+.feed h2{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-dim);margin:0 0 12px;font-weight:500}
+.feed li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--line-soft);font-size:14px}
+.feed ul{margin:0;padding:0}
+.feed .who{font-weight:500}
+.feed .amt{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--chalk-dim);white-space:nowrap}
+
+/* done banner */
+.done{display:none;border:1px solid var(--hi);padding:14px 16px;margin-top:16px}
+.done.on{display:block}
+.done b{font-family:"Big Shoulders Display",sans-serif;font-size:24px;text-transform:uppercase;display:block;color:var(--hi)}
+
+/* toast + footer */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;
+  background:var(--clay-1);color:#fff;padding:11px 20px;border-radius:var(--radius);z-index:50;
+  font-family:"Big Shoulders Display",sans-serif;font-size:20px;letter-spacing:.05em;text-transform:uppercase;
+  transition:opacity .2s ease,transform .2s ease;pointer-events:none;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{margin-top:56px;border-top:1px solid var(--line-mid);padding-top:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--chalk-dim)}
+footer button{width:auto;background:none;border:1px solid var(--line-mid);color:var(--chalk-dim);font-size:11px;
+  font-family:"IBM Plex Mono",monospace;letter-spacing:.08em;padding:5px 12px}
+footer button:hover{background:none;border-color:var(--hi);color:var(--hi)}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .b.fill:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="meta">
+    <span>Proyek <b>01</b></span>
+    <span>Desa Sukamaju, Lombok Timur</span>
+    <span>Perpustakaan · 6,00 × 2,40 m</span>
+    <span>Status <b id="metaStatus">Dalam pengerjaan</b></span>
+  </div>
+
+  <h1>Satu bata<em>satu nama</em></h1>
+  <p class="dek">Perpustakaan Desa Sukamaju dibangun dari <strong>120 bata</strong>. Setiap bata dibayar satu orang, dan membawa namanya. Arahkan kursor ke tembok untuk melihat siapa yang sudah memasang.</p>
+
+  <div class="cols">
+
+    <div>
+      <div class="stats">
+        <div class="count"><span id="cNow">0</span><span> / 120 bata</span></div>
+        <div class="rupiah" id="cRp">Rp 0</div>
+        <div class="target">Target Rp 6.000.000 · Rp 50.000 per bata</div>
+      </div>
+
+      <div class="form">
+        <h2>Pasang bata</h2>
+
+        <label for="nama">Nama yang ditulis di bata</label>
+        <input type="text" id="nama" placeholder="Wahyu R." maxlength="24" autocomplete="off">
+
+        <div class="row-lbl">
+          <label for="jml">Jumlah bata</label>
+          <output id="out">1 bata · Rp 50.000</output>
+        </div>
+        <input type="range" id="jml" min="1" max="10" value="1">
+
+        <label for="pesan">Pesan (opsional)</label>
+        <input type="text" id="pesan" placeholder="Semoga bermanfaat" maxlength="60" autocomplete="off">
+
+        <button id="submit">Pasang bata saya</button>
+        <p class="err" id="err"></p>
+      </div>
+
+      <div class="done" id="done">
+        <b>Dinding selesai</b>
+        Seratus dua puluh nama berdiri jadi satu tembok. Atap menyusul di tahap berikutnya.
+      </div>
+
+      <div class="feed">
+        <h2>Bata terakhir dipasang</h2>
+        <ul id="feed"></ul>
+      </div>
+    </div>
+
+    <div class="drawing">
+      <svg class="roofline" viewBox="0 0 600 52" preserveAspectRatio="none" aria-hidden="true">
+        <polyline id="roof" points="6,50 300,6 594,50" fill="none" stroke="#5CB0C5" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="7 6"/>
+        <line x1="300" y1="6" x2="300" y2="50" stroke="#5CB0C5" stroke-opacity=".25" stroke-width="1" stroke-dasharray="3 5"/>
+      </svg>
+      <div class="wall" id="wall">
+        <div class="pillar l"></div>
+        <div class="pillar r"></div>
+      </div>
+      <div class="dim v"><span>2,40 M</span></div>
+      <div class="dim h">6,00 M</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Prototipe demo · data tidak disimpan</span>
+    <button id="reset">Reset demo</button>
+  </footer>
+</div>
+
+<div class="tip" id="tip"></div>
+<div class="toast" id="toast">Bata terpasang</div>
+
+<script>
+const TOTAL=120, PER_ROW=10, PRICE=50000, SEED_TARGET=74;
+const NAMES=["Rina W.","Bagas P.","Siti Aminah","Dimas A.","Nurul H.","Yoga S.","Kartika D.","Fajar M.","Ayu Lestari","Reza F.","Indah P.","Bimo S.","Tari N.","Hendra K.","Melati S.","Arif B.","Dewi Ratna","Panji A.","Laras W.","Ilham T.","Vina M.","Gilang R.","Sekar A.","Toni H."];
+const MSGS=["Semoga anaknya rajin baca","Titip satu rak buku","Dari Surabaya","Buat adik-adik di sana","Semangat!","","","Semoga cepat berdiri","","Salam dari perantauan",""];
+
+let bricks=[], donations=[], nextId=1;
+const $=id=>document.getElementById(id);
+const rp=n=>"Rp "+n.toLocaleString("id-ID");
+
+/* ---------- build the wall once ---------- */
+const wall=$("wall"), els=[];
+for(let r=0;r<TOTAL/PER_ROW;r++){
+  const row=document.createElement("div");
+  row.className="brow"+(r%2?" off":"");
+  for(let c=0;c<PER_ROW;c++){
+    const i=r*PER_ROW+c;
+    const b=document.createElement("div");
+    b.className="b empty"; b.dataset.i=i;
+    row.appendChild(b); els[i]=b;
+  }
+  wall.appendChild(row);
+}
+
+function shade(i){return "c"+((i*7+Math.floor(i/PER_ROW)*3)%4+1);}
+
+function paint(i,animate){
+  const d=bricks[i], el=els[i];
+  el.classList.remove("drop");
+  if(d===null){el.className="b empty";return;}
+  el.className="b fill "+shade(i)+(animate?" drop":"");
+  if(animate) el.style.animationDelay=(el.dataset.delay||0)+"ms";
+}
+
+/* ---------- state ---------- */
+function place(donor,msg,count,ts){
+  const free=[];
+  for(let i=0;i<TOTAL&&free.length<count;i++) if(bricks[i]===null) free.push(i);
+  if(!free.length) return null;
+  const d={id:nextId++,donor,msg,count:free.length,amount:free.length*PRICE,ts:ts||Date.now()};
+  donations.push(d);
+  free.forEach(i=>bricks[i]=d);
+  return {d,idx:free};
+}
+
+function seed(){
+  bricks=new Array(TOTAL).fill(null); donations=[]; nextId=1;
+  let filled=0, k=0, t=Date.now()-1000*60*60*30;
+  while(filled<SEED_TARGET){
+    const n=Math.min(1+((k*5)%4),SEED_TARGET-filled);
+    t+=1000*60*(12+(k*7)%40);
+    place(NAMES[k%NAMES.length],MSGS[k%MSGS.length],n,t);
+    filled+=n; k++;
+  }
+  for(let i=0;i<TOTAL;i++) paint(i,false);
+  els.forEach(e=>e.style.animationDelay="");
+  render(false);
+}
+
+/* ---------- rendering ---------- */
+function filledCount(){return bricks.filter(Boolean).length;}
+
+let shown=0;
+function tween(to){
+  const from=shown, t0=performance.now(), dur=600;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){shown=to;$("cNow").textContent=to;$("cRp").textContent=rp(to*PRICE);return;}
+  (function step(now){
+    const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    const v=Math.round(from+(to-from)*e);
+    $("cNow").textContent=v; $("cRp").textContent=rp(v*PRICE);
+    if(p<1) requestAnimationFrame(step); else shown=to;
+  })(t0);
+}
+
+function ago(ts){
+  const m=Math.round((Date.now()-ts)/60000);
+  if(m<1) return "baru saja";
+  if(m<60) return m+" menit lalu";
+  const h=Math.round(m/60); return h<24? h+" jam lalu" : Math.round(h/24)+" hari lalu";
+}
+
+function render(animate){
+  const n=filledCount();
+  tween(n);
+  const full=n>=TOTAL;
+  $("done").classList.toggle("on",full);
+  $("metaStatus").textContent=full?"Dinding selesai":"Dalam pengerjaan";
+  $("submit").disabled=full;
+  if(full){$("roof").setAttribute("stroke-dasharray","");$("roof").setAttribute("stroke-opacity","1");}
+  else{$("roof").setAttribute("stroke-dasharray","7 6");$("roof").setAttribute("stroke-opacity",".55");}
+
+  $("feed").innerHTML=donations.slice(-6).reverse().map(d=>
+    `<li><span class="who">${esc(d.donor)}</span><span class="amt">${d.count} bata · ${ago(d.ts)}</span></li>`).join("");
+}
+function esc(s){return s.replace(/[<>&"]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;"}[c]));}
+
+/* ---------- tooltip ---------- */
+const tip=$("tip");
+wall.addEventListener("mouseover",e=>{
+  const el=e.target.closest(".b.fill"); if(!el) return;
+  const d=bricks[+el.dataset.i]; if(!d) return;
+  tip.innerHTML=`<div class="n">${esc(d.donor)}</div><div class="d">${d.count} bata · ${rp(d.amount)} · ${ago(d.ts)}</div>`+
+    (d.msg?`<div class="m">“${esc(d.msg)}”</div>`:"");
+  const r=el.getBoundingClientRect();
+  tip.style.left=(r.left+r.width/2)+"px"; tip.style.top=r.top+"px";
+  tip.classList.add("on");
+});
+wall.addEventListener("mouseout",e=>{if(!e.relatedTarget||!e.relatedTarget.closest(".b.fill")) tip.classList.remove("on");});
+
+/* ---------- form ---------- */
+const jml=$("jml"), out=$("out");
+function syncOut(){const n=+jml.value; out.textContent=n+" bata · "+rp(n*PRICE);}
+jml.addEventListener("input",syncOut); syncOut();
+
+let toastT;
+function toast(msg){
+  const t=$("toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("on"),2200);
+}
+
+$("submit").addEventListener("click",()=>{
+  const nama=$("nama").value.trim();
+  if(!nama){$("err").textContent="Isi nama dulu, biar batanya ada yang punya.";$("nama").focus();return;}
+  const sisa=TOTAL-filledCount();
+  let n=Math.min(+jml.value,sisa);
+  $("err").textContent = n<+jml.value ? "Sisa "+sisa+" bata. Jumlahnya disesuaikan." : "";
+
+  const res=place(nama,$("pesan").value.trim(),n);
+  if(!res) return;
+  res.idx.forEach((i,k)=>{els[i].dataset.delay=k*90; paint(i,true);});
+  render(true);
+  toast(n+" bata terpasang");
+  $("nama").value=""; $("pesan").value=""; jml.value=1; syncOut();
+});
+$("nama").addEventListener("input",()=>$("err").textContent="");
+
+$("reset").addEventListener("click",()=>{shown=0;seed();$("err").textContent="";toast("Demo direset");});
+
+seed();
+</script>
+</body>
+</html>
